@@ -9,10 +9,12 @@ use tokio::sync::Mutex;
 mod message_handler;
 mod poise_boilerplate;
 mod db_helper;
+mod role_helper;
 mod commands {
     pub mod color;
     pub mod default_roles;
 }
+
 
 
 use poise_boilerplate::*;
@@ -31,9 +33,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         conn: Arc::new(Mutex::new(connect(db_path).expect("Unable to estabilish database connection")))
     };
 
-    
-
-    
     let token = env::var("DISCORD_AUTH_TOKEN").expect("Expected a token in the environment");
     let framework = poise::Framework::builder()
         .options(poise::FrameworkOptions {
